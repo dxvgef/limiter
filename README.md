@@ -16,23 +16,17 @@ import (
 	"github.com/dxvgef/limiter"
 )
 
-func serveFile(resp http.ResponseWriter, req *http.Request) {
-    err := limiter.ServeFile(resp, req, "./demo.mp4", 100*1024)
-    if err != nil {
-    	resp.WriteHeader(500)
-    	resp.Write([]byte(err.Error()))
-    }
-}
-
 func main() {
-	// log.SetFlags(log.Lshortfile)
+	http.HandleFunc("/", func (resp http.ResponseWriter, req *http.Request) {
+         if err := limiter.ServeFile(resp, req, "./demo.mp4", 100*1024); err != nil {
+         	resp.WriteHeader(500)
+            resp.Write([]byte(err.Error()))
+         }
+     })
 
-	http.HandleFunc("/", serveFile)
-
-	err := http.ListenAndServe(":8080", nil)
-	if err != nil {
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Println(err.Error())
-		return
+        return
 	}
 }
 ```
