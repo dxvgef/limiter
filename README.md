@@ -1,5 +1,5 @@
 # limiter
-Golang实现的HTTP限流功能包
+Golang实现的HTTP客户端下载限速功能包
 
 示例代码：
 ```Go
