@@ -1,4 +1,4 @@
-module limiter
+module github.com/dxvgef/limiter
 
 go 1.12
 
